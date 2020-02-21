@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const AddContact = () => {
+export const EditContact = () => {
 	const { actions } = useContext(Context);
 	return (
 		<div className="container">
@@ -49,11 +49,9 @@ export const AddContact = () => {
 							onChange={e => actions.createContact(e)}
 						/>
 					</div>
-
 					<button type="submit" className="btn btn-primary form-control">
 						save
 					</button>
-
 					<Link className="mt-3 w-100 text-center" to="/">
 						or get back to contacts
 					</Link>

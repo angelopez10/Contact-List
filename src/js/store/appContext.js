@@ -21,20 +21,10 @@ const injectContext = PassedComponent => {
 			})
 		);
 
-		useEffect(() => { 
-			/**
-			 * EDIT THIS!
-			 * This function is the equivalent to "window.onLoad", it only run once on the entire application lifetime
-			 * you should do your ajax requests or fetch api requests here
-			 *
-			 * state.loadSomeData(); <---- calling this function from the flux.js actions
-			 *
-			 **/
+		useEffect(() => {
+			state.actions.getContactList();
 		}, []);
 
-		// the initial value for the context its not null anymore, but the current state of this component,
-		// the context will have a getStore and setStore functions available then, because they were declared
-		// on the state of this component
 		return (
 			<Context.Provider value={state}>
 				<PassedComponent {...props} />
@@ -45,4 +35,3 @@ const injectContext = PassedComponent => {
 };
 
 export default injectContext;
-
