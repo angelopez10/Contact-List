@@ -1,22 +1,28 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const EditContact = () => {
-	const { actions } = useContext(Context);
+export const EditContact = props => {
+	const { store, actions } = useContext(Context);
+
+	useEffect(() => {
+		actions.getSpecificContact(props);
+	}, []);
+
 	return (
 		<div className="container">
 			<div>
 				<h1 className="text-center mt-5">Add a new contact</h1>
-				<form onSubmit={e => actions.submitData(e)}>
+				<form onSubmit={e => actions.updateContact(e)} id={store.contact.id}>
 					<div className="form-group">
 						<label>Full Name</label>
 						<input
 							type="text"
 							className="form-control"
-							placeholder="Full Name"
+							placeholder="Full name"
 							name="full_name"
 							onChange={e => actions.createContact(e)}
+							value={store.contact.full_name || ""}
 						/>
 					</div>
 					<div className="form-group">
@@ -24,9 +30,10 @@ export const EditContact = () => {
 						<input
 							type="email"
 							className="form-control"
-							placeholder="Enter email"
+							placeholder="Email"
 							name="email"
 							onChange={e => actions.createContact(e)}
+							value={store.contact.email || ""}
 						/>
 					</div>
 					<div className="form-group">
@@ -34,9 +41,10 @@ export const EditContact = () => {
 						<input
 							type="phone"
 							className="form-control"
-							placeholder="Enter phone"
+							placeholder="Phone Number"
 							name="phone"
 							onChange={e => actions.createContact(e)}
+							value={store.contact.phone || ""}
 						/>
 					</div>
 					<div className="form-group">
@@ -44,9 +52,10 @@ export const EditContact = () => {
 						<input
 							type="text"
 							className="form-control"
-							placeholder="Enter address"
+							placeholder="Address"
 							name="address"
 							onChange={e => actions.createContact(e)}
+							value={store.contact.address || ""}
 						/>
 					</div>
 					<button type="submit" className="btn btn-primary form-control">

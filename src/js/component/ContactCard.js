@@ -15,7 +15,7 @@ export const ContactCard = props => {
 				</div>
 				<div className="col-12 col-sm-6 col-md-9 text-center text-sm-left">
 					<div className=" float-right">
-						<Link to="/edit">
+						<Link to={`/edit/${props.id}`}>
 							<button className="btn">
 								<i className="fas fa-pencil-alt mr-3" />
 							</button>
@@ -24,7 +24,9 @@ export const ContactCard = props => {
 							<i id={props.id} className="fas fa-trash-alt" />
 						</button>
 					</div>
-					<label className="name lead">{props.name}</label>
+					<Link to={`info/${props.id}`}>
+						<label className="name lead">{props.name}</label>
+					</Link>
 					<br />
 					<i className="fas fa-map-marker-alt text-muted mr-3" />
 					<span className="text-muted">{props.address}</span>

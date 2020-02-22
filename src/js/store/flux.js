@@ -112,6 +112,64 @@ const getState = ({ getStore, setStore }) => {
 					.catch(error => {
 						console.log(error);
 					});
+			},
+
+			updateContact: e => {
+				e.preventDefault();
+				const store = getStore();
+				console.log(e.target);
+				fetch(`https://assets.breatheco.de/apis/fake/contact/${e.target.id}`, {
+					method: "PUT",
+					body: JSON.stringify(store.contact),
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+					.then(resp => {
+						if (resp.ok === true) {
+							fetch("https://assets.breatheco.de/apis/fake/contact/agenda/angelopez10", {
+								method: "GET",
+								headers: {
+									"Content-Type": "application/json"
+								}
+							})
+								.then(resp => {
+									return resp.json();
+								})
+								.then(data => {
+									setStore({ contactList: data });
+								})
+								.catch(error => {
+									console.log(error);
+								});
+						}
+					})
+					.then(data => {
+						console.log("Se ha modificado el contacto");
+					})
+					.catch(error => {
+						console.log(error);
+					});
+			},
+
+			getSpecificContact: e => {
+				console.log(e);
+				fetch(`https://assets.breatheco.de/apis/fake/contact/${e.match.params.id}`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+					.then(resp => {
+						return resp.json();
+					})
+					.then(data => {
+						console.log(data);
+						setStore({ contact: data });
+					})
+					.catch(error => {
+						console.log(error);
+					});
 			}
 		}
 	};
